@@ -29,7 +29,7 @@ def load_lottie_file(filepath: str):
         return json.load(f)
 
 # Path to the Lottie file
-lottie_filepath = "lottie.json"  # Make sure the path is correct
+lottie_animation = load_lottie_file("animation.json")
 
 # Load Lottie animation
 lottie_animation = load_lottie_file(lottie_filepath)
