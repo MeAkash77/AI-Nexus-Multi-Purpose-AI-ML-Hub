@@ -1,0 +1,12 @@
+Keras
+opencv-python
+Pillow
+python-dateutil
+streamlit
+tensorflow
+matplotlib
+numpy
+pandas
+pickle-mixin
+streamlit-lottie
+requests
