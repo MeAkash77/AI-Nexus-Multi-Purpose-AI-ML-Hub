@@ -23,7 +23,7 @@ st.set_page_config(page_title="MNIST Digit Recognition", page_icon="🧮", layou
 
 def load_lottie_file(filepath: str):
      base_dir = os.path.dirname(__file__)
-    filepath = os.path.join(base_dir, filename)
+     filepath = os.path.join(base_dir, filename)
     
         with open(filepath, "r", encoding="utf-8") as f:
         return json.load(f)
