@@ -16,18 +16,22 @@ import requests  # For fetching Lottie animation
 import streamlit_lottie as st_lottie
 import base64  # <-- Import base64 for GIF encoding
 
+# Absolute path to this file's folder
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 MODEL_PATH = os.path.join(BASE_DIR, "Seq_model.h5")
 
 @st.cache_resource
 def load_seq_model():
 
+    # Debug info (helps on Streamlit Cloud)
     if not os.path.exists(MODEL_PATH):
-        st.error(f"Model not found at: {MODEL_PATH}")
-        st.write("Available files:", os.listdir(BASE_DIR))
+        st.error(f"Model NOT found at: {MODEL_PATH}")
+        st.write("Files inside StyleScan folder:")
+        st.write(os.listdir(BASE_DIR))
         st.stop()
 
-    return tf.keras.models.load_model(MODEL_PATH)
+    model = tf.keras.models.load_model(MODEL_PATH)
+    return model
 
 seq_model = load_seq_model()
 
