@@ -43,9 +43,6 @@ seq_model, cnn_model = load_models()
 fas_data=keras.datasets.fashion_mnist
 (train_images,train_labels),(test_images,test_labels)=fas_data.load_data()
 
-# Load models
-seq_model = tf.keras.models.load_model("Seq_model.h5")
-cnn_model = tf.keras.models.load_model("cnn_model.h5")
 
 class_names = ['👕 Tshirt/Top', '👖 Trouser', '🧥 Pullover', '👗 Dress', '🧥 Coat',
                '👡 Sandal', '👔 Shirt', '👟 Sneaker', '👜 Bag', '👢 Ankle boot']
