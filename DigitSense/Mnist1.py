@@ -10,24 +10,11 @@ import json
 
 st.set_page_config(page_title="MNIST Digit Recognition", page_icon="🧮", layout="wide")
 
-# # Load Lottie animation
-# def load_lottie_url(url: str):
-#     r = requests.get(url)
-#     if r.status_code != 200:
-#         return None
-#     return r.json()
-
-# # Lottie Animation
-# lottie_url = "https://lottie.host/d037f966-769e-40c3-88c4-7c418130cd05/ipnsCTF8x2.json"
-# lottie_animation = load_lottie_url(lottie_url)
-
 def load_lottie_file(filepath: str):
      base_dir = os.path.dirname(__file__)
      filepath = os.path.join(base_dir, filename)
-    
-        with open(filepath, "r", encoding="utf-8") as f:
+     with open(filepath, "r", encoding="utf-8") as f:
         data = json.load(f)
-                 return data
              
 # Path to the Lottie file
 lottie_filepath = "lottie.json"  # Make sure the path is correct
