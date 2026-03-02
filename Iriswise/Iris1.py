@@ -1,4 +1,5 @@
 import streamlit as st
+import os
 import joblib
 import numpy as np
 import pandas as pd
@@ -9,8 +10,11 @@ from sklearn.neighbors import KNeighborsClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import confusion_matrix
 
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DATA_PATH = os.path.join(BASE_DIR, "Iris.csv")
+
 # Load the dataset
-dataset = pd.read_csv("Iris.csv")
+dataset = pd.read_csv(DATA_PATH)
 
 # Prepare the features and target variable
 x = dataset.drop(["Species", "Id"], axis=1)
