@@ -372,9 +372,12 @@ if file_uploader is not None:
         st.bar_chart(chart_data)
 
     # Display the animated GIF after prediction
-        gif_path = "Celebrations.gif"  # Ensure this path is correct
-        gif_base64 = get_gif_base64(gif_path)
-        st.markdown(
+       # Display the animated GIF after prediction
+gif_path = os.path.join(BASE_DIR, "Celebrations.gif")
+gif_base64 = get_gif_base64(gif_path)
+
+if gif_base64:
+    st.markdown(
         f"""
         <div style="text-align: center; border: 5px solid #FF5733; padding: 10px; animation: pulse 1s infinite;">
             <img src="data:image/gif;base64,{gif_base64}" style="max-width: 100%; height: auto;">
@@ -389,12 +392,8 @@ if file_uploader is not None:
         """,
         unsafe_allow_html=True
     )
-    
-    if st.button('🧠 Classify Image'):
-        model = cnn_model if model_selection == 'CNN' else seq_model
-        classify_image(image, model)
-        st.success("✅ Image successfully classified!")
-        st.balloons()
+else:
+    st.info("🎉 Prediction completed successfully!")
 
 # Updated data with more balanced accuracies
 data_cnn_updated = {
