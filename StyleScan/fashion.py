@@ -123,7 +123,7 @@ with st.sidebar:
 
     # Contact information
     st.markdown("<hr>", unsafe_allow_html=True)
-    st.markdown('Contact us at: [**Hunterdii**](https://www.linkedin.com/in/het-patel-8b110525a/?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app)')
+    st.markdown('Contact us at: [**Akash**](https://www.linkedin.com/in/me-akash77/?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app)')
 
 
 def show_loader():
@@ -309,8 +309,8 @@ if contact_us_checked:
     st.markdown("---")
     st.header("📞 Contact Us")
     contact_image = Image.open('StyleScan/Het Patel.jpg').resize((400, 400))
-    st.image(contact_image, caption='Het Patel')
-    st.write('📧 Email: hunterdii9879@gmail.com')
+    st.image(contact_image, caption='Akash')
+    st.write('📧 Email: iakshu845@gmail.com')
 
 # File Uploader and Image Classification
 file_uploader = st.file_uploader('📂 Upload cloth image for classification:')
