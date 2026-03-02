@@ -14,6 +14,7 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 # Full path to CSV
 DATA_PATH = os.path.join(BASE_DIR, "Student_performance_data_.csv")
+dataset = pd.read_csv(DATA_PATH)
 
 # Prepare features and target variable
 x = dataset[['StudentID', 'Age', 'StudyTimeWeekly', 'GradeClass', 'StudyGradeInteraction']]
