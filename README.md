@@ -4,7 +4,7 @@
 
 ## Projects Included:
 
-1. **👗 StyleScan - Fashion MNIST Image Classification**
+1. **👗 StyleScan - Fashion MNIST Image Classification [Live Link)(https://ai-nexus1.streamlit.app/)**
 2. **🩺 GlycoTrack - Advanced Diabetes Prediction**
 3. **🌸 IrisWise - Iris Species Classification**
 4. **🎓 GradeCast - GPA Prediction Model**
