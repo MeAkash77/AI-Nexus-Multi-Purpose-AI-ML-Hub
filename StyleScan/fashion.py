@@ -372,12 +372,11 @@ if file_uploader is not None:
         st.bar_chart(chart_data)
 
     # Display the animated GIF after prediction
-       # Display the animated GIF after prediction
-gif_path = os.path.join(BASE_DIR, "Celebrations.gif")
-gif_base64 = get_gif_base64(gif_path)
+        gif_path = os.path.join(BASE_DIR, "Celebrations.gif")
+        gif_base64 = get_gif_base64(gif_path)
 
-if gif_base64:
-    st.markdown(
+        if gif_base64:
+        st.markdown(
         f"""
         <div style="text-align: center; border: 5px solid #FF5733; padding: 10px; animation: pulse 1s infinite;">
             <img src="data:image/gif;base64,{gif_base64}" style="max-width: 100%; height: auto;">
@@ -391,9 +390,9 @@ if gif_base64:
         </style>
         """,
         unsafe_allow_html=True
-    )
-else:
-    st.info("🎉 Prediction completed successfully!")
+        )
+        else:
+        st.info("🎉 Prediction completed successfully!")
 
 # Updated data with more balanced accuracies
 data_cnn_updated = {
