@@ -1,5 +1,4 @@
 import tensorflow as tf
-import os
 import streamlit as st
 import matplotlib.pyplot as plt
 from PIL import Image
@@ -16,33 +15,14 @@ import requests  # For fetching Lottie animation
 import streamlit_lottie as st_lottie
 import base64  # <-- Import base64 for GIF encoding
 
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
-SEQ_MODEL_PATH = os.path.join(BASE_DIR, "Seq_model.h5")
-CNN_MODEL_PATH = os.path.join(BASE_DIR, "cnn_model.h5")
-
-@st.cache_resource
-def load_models():
-    if not os.path.exists(SEQ_MODEL_PATH):
-        st.error(f"Sequential Model NOT found at: {SEQ_MODEL_PATH}")
-        st.write(os.listdir(BASE_DIR))
-        st.stop()
-
-    if not os.path.exists(CNN_MODEL_PATH):
-        st.error(f"CNN Model NOT found at: {CNN_MODEL_PATH}")
-        st.write(os.listdir(BASE_DIR))
-        st.stop()
-
-    seq_model = tf.keras.models.load_model(SEQ_MODEL_PATH)
-    cnn_model = tf.keras.models.load_model(CNN_MODEL_PATH)
-
-    return seq_model, cnn_model
-
-seq_model, cnn_model = load_models()
 
 fas_data=keras.datasets.fashion_mnist
 (train_images,train_labels),(test_images,test_labels)=fas_data.load_data()
 
+# Load models
+seq_model = tf.keras.models.load_model("StyleScan/Seq_model.h5")
+cnn_model = tf.keras.models.load_model("StyleScan/cnn_model.h5")
 
 class_names = ['👕 Tshirt/Top', '👖 Trouser', '🧥 Pullover', '👗 Dress', '🧥 Coat',
                '👡 Sandal', '👔 Shirt', '👟 Sneaker', '👜 Bag', '👢 Ankle boot']
@@ -143,7 +123,7 @@ with st.sidebar:
 
     # Contact information
     st.markdown("<hr>", unsafe_allow_html=True)
-    st.markdown('Contact us at: [**Akash**](https://www.linkedin.com/in/me-akash77/?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app)')
+    st.markdown('Contact us at: [**Hunterdii**](https://www.linkedin.com/in/het-patel-8b110525a/?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app)')
 
 
 def show_loader():
@@ -161,19 +141,19 @@ def explore_data(train_images, train_labels, test_images):
 
 def CNN_model_summary():
     st.markdown("### 🧠 **CNN Model Summary**")
-    img = Image.open("cnn_summary.png")
+    img = Image.open("StyleScan/cnn_summary.png")
     st.image(img)
 
 # Function to show Sequential Model Summary
 def Seq_model_Summary():
     st.markdown("### 📜 **Sequential Model Summary**")
-    img = Image.open("Seq_summary.png")
+    img = Image.open("StyleScan/Seq_summary.png")
     st.image(img)
 
 
 # Graph plotting functions
 def seq_history_graph():
-    with open('seq_trainHistory', 'rb') as infile:
+    with open('StyleScan/seq_trainHistory', 'rb') as infile:
         history = pickle.load(infile)
     fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(14, 6))
     train_acc = history['accuracy']
@@ -194,7 +174,7 @@ def seq_history_graph():
     st.pyplot(fig)
 
 def cnn_history_graph():
-    with open('cnntrainHistory', 'rb') as infile:
+    with open('StyleScan/cnntrainHistory', 'rb') as infile:
         history = pickle.load(infile)
     fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(14, 6))
     train_acc = history['accuracy']
@@ -217,12 +197,12 @@ def cnn_history_graph():
 # Architecture Images
 def cnn_archi():
     st.markdown("### 🧠 **CNN Model Architecture**")
-    img = Image.open('cnn_model_architecture.png')
+    img = Image.open('StyleScan/cnn_model_architecture.png')
     st.image(img)
 
 def seq_archi():
     st.markdown("### 📜 **Sequential Model Architecture**")
-    img = Image.open('seq_model_architecture.png')
+    img = Image.open('StyleScan/seq_model_architecture.png')
     st.image(img)
 
 if about_data_checked:
@@ -290,64 +270,50 @@ if demo_images_checked:
     st.write("🖼️ Please upload the following types of clothes for classification:")
     
     images = [
-    ("Demo Images/bag.jpeg", "👜 Bag"),
-    ("Demo Images/Sneaker.png", "👟 Sneaker"),
-    ("Demo Images/snicker.jpg", "👟 Snicker"),
-    ("Demo Images/coat.jpg", "🧥 Coat"),
-    ("Demo Images/Trouser.jpeg", "👖 Trouser"),
-    ("Demo Images/Dress.jpeg", "👗 Dress"),
-    ("Demo Images/Pant.jpeg", "🩳 Pant"),
-    ("Demo Images/blazer.jpeg", "🧥 Blazer"),
-    ("Demo Images/shirt.jpg", "👚 Shirt"),
-    ("Demo Images/T-shirt.jpeg", "👕 T-Shirt"), 
+    ("StyleScan/Demo Images/bag.jpeg", "👜 Bag"),
+    ("StyleScan/Demo Images/Sneaker.png", "👟 Sneaker"),
+    ("StyleScan/Demo Images/snicker.jpg", "👟 Snicker"),
+    ("StyleScan/Demo Images/coat.jpg", "🧥 Coat"),
+    ("StyleScan/Demo Images/Trouser.jpeg", "👖 Trouser"),
+    ("StyleScan/Demo Images/Dress.jpeg", "👗 Dress"),
+    ("StyleScan/Demo Images/Pant.jpeg", "🩳 Pant"),
+    ("StyleScan/Demo Images/blazer.jpeg", "🧥 Blazer"),
+    ("StyleScan/Demo Images/shirt.jpg", "👚 Shirt"),
+    ("StyleScan/Demo Images/T-shirt.jpeg", "👕 T-Shirt"), 
     ]
+ 
     for img_path, label in images:
-        full_path = os.path.join(BASE_DIR, img_path)
+        image = Image.open(img_path).resize((180, 180))
+        st.image(image, caption=label)
 
-        if os.path.exists(full_path):
-           image = Image.open(full_path).resize((180, 180))
-           st.image(image, caption=label)
-        else:
-           st.warning(f"Image not found: {img_path}")
-
-# Pretrained Network Section
 # Pretrained Network Section
 if pretrained_network_checked:
     st.info("🧠 Working on it, update coming soon!")
 
 # Working Demo Section
 if working_demo_checked:
-    st.markdown("---")
+    st.markdown("---")  # Add a separator
     st.header("🎥 Working Demo")
 
-    VIDEO_PATH = os.path.join(BASE_DIR, "streamlit-fashion-Mnist.webm")
-
-    if os.path.exists(VIDEO_PATH):
-        with open(VIDEO_PATH, "rb") as video_file:
-            video_bytes = video_file.read()
-            st.video(video_bytes)
-    else:
-        st.warning("Video file not found in repository.")
+    # Load and display the video
+    video_file_path = 'StyleScan/streamlit-fashion-Mnist.webm'  # Update this path to your video file
+    try:
+        video_file = open(video_file_path, 'rb')
+        video_bytes = video_file.read()
+        st.video(video_bytes)
+    except FileNotFoundError:
+        st.error(f"⚠️ Video file not found: {video_file_path}. Please check the file path.")
 
 # Contact Us Section
 if contact_us_checked:
     st.markdown("---")
     st.header("📞 Contact Us")
+    contact_image = Image.open('StyleScan/Het Patel.jpg').resize((400, 400))
+    st.image(contact_image, caption='Het Patel')
+    st.write('📧 Email: hunterdii9879@gmail.com')
 
-    IMAGE_PATH = os.path.join(BASE_DIR, "Het Patel.jpg")
-
-    if os.path.exists(IMAGE_PATH):
-        contact_image = Image.open(IMAGE_PATH).resize((400, 400))
-        st.image(contact_image, caption='Akash')
-    else:
-        st.warning("Contact image not found in repository.")
-
-    st.write('📧 Email: iakshu845@gmail.com')
-    
 # File Uploader and Image Classification
-file_uploader = st.file_uploader( "📂 Upload cloth image for classification",
-    type=["jpg", "jpeg", "png"]
-)
+file_uploader = st.file_uploader('📂 Upload cloth image for classification:')
 if file_uploader is not None:
     image = Image.open(file_uploader).resize((180, 180))
     st.image(image, caption='Uploaded image:')
@@ -372,12 +338,9 @@ if file_uploader is not None:
         st.bar_chart(chart_data)
 
     # Display the animated GIF after prediction
-
-gif_path = os.path.join(BASE_DIR, "Celebrations.gif")
-gif_base64 = get_gif_base64(gif_path)
-
-if gif_base64:
-    st.markdown(
+        gif_path = "StyleScan/Celebrations.gif"  # Ensure this path is correct
+        gif_base64 = get_gif_base64(gif_path)
+        st.markdown(
         f"""
         <div style="text-align: center; border: 5px solid #FF5733; padding: 10px; animation: pulse 1s infinite;">
             <img src="data:image/gif;base64,{gif_base64}" style="max-width: 100%; height: auto;">
@@ -392,9 +355,12 @@ if gif_base64:
         """,
         unsafe_allow_html=True
     )
-else:
-    st.info("🎉 Prediction completed successfully!")
-        
+    
+    if st.button('🧠 Classify Image'):
+        model = cnn_model if model_selection == 'CNN' else seq_model
+        classify_image(image, model)
+        st.success("✅ Image successfully classified!")
+        st.balloons()
 
 # Updated data with more balanced accuracies
 data_cnn_updated = {
@@ -452,4 +418,4 @@ def create_styled_table(df, model_name):
 
 # Display both CNN and Sequential models' updated performance tables
 create_styled_table(df_cnn_updated, "CNN Model")
-create_styled_table(df_seq_updated, "Sequential Model")  
+create_styled_table(df_seq_updated, "Sequential Model")
