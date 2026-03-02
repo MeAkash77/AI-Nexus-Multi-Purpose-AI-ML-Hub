@@ -18,7 +18,9 @@ import base64  # <-- Import base64 for GIF encoding
 
 # Absolute path to this file's folder
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-MODEL_PATH = os.path.join(BASE_DIR, "Seq_model.h5")
+
+SEQ_MODEL_PATH = os.path.join(BASE_DIR, "Seq_model.h5")
+CNN_MODEL_PATH = os.path.join(BASE_DIR, "cnn_model.h5")
 
 @st.cache_resource
 def load_seq_model():
