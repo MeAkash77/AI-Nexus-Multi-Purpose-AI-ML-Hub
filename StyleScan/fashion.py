@@ -311,8 +311,8 @@ if demo_images_checked:
            st.warning(f"Image not found: {img_path}")
 
 # Pretrained Network Section
-        if pretrained_network_checked:
-        st.info("🧠 Working on it, update coming soon!")
+if pretrained_network_checked:
+st.info("🧠 Working on it, update coming soon!")
 
 # Working Demo Section
 if working_demo_checked:
