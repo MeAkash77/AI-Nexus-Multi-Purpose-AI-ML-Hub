@@ -11,7 +11,7 @@ import os
 
 st.set_page_config(page_title="MNIST Digit Recognition", page_icon="🧮", layout="wide")
 
-def load_lottie_file(filepath):
+def load_lottie_file(filename):
      base_dir = os.path.dirname(__file__)
      filepath = os.path.join(base_dir, filename)
      
