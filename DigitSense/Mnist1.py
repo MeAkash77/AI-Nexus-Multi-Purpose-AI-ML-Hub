@@ -100,7 +100,10 @@ with st.sidebar:
 # Load model
 @st.cache_resource
 def load_my_model():
-    model = tf.keras.models.load_model("model.h5")
+     base_dir = os.path.dirname(__file__)   # folder of Mnist1.py
+    model_path = os.path.join(base_dir, "model.h5")
+
+    model = tf.keras.models.load_model(model_path)
     return model
 
 model = load_my_model()
