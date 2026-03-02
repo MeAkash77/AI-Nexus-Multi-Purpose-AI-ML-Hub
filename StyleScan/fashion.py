@@ -22,20 +22,29 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 SEQ_MODEL_PATH = os.path.join(BASE_DIR, "Seq_model.h5")
 CNN_MODEL_PATH = os.path.join(BASE_DIR, "cnn_model.h5")
 
-@st.cache_resource
-def load_seq_model():
+# -------------------- MODEL LOADING --------------------
 
-    # Debug info (helps on Streamlit Cloud)
-    if not os.path.exists(MODEL_PATH):
-        st.error(f"Model NOT found at: {MODEL_PATH}")
-        st.write("Files inside StyleScan folder:")
-        st.write(os.listdir(BASE_DIR))
+@st.cache_resource
+def load_models():
+
+    if not os.path.exists(SEQ_MODEL_PATH):
+        st.error(f"Sequential Model NOT found at: {SEQ_MODEL_PATH}")
+        st.write("Files in directory:", os.listdir(BASE_DIR))
         st.stop()
 
-    model = tf.keras.models.load_model(MODEL_PATH)
-    return model
+    if not os.path.exists(CNN_MODEL_PATH):
+        st.error(f"CNN Model NOT found at: {CNN_MODEL_PATH}")
+        st.write("Files in directory:", os.listdir(BASE_DIR))
+        st.stop()
 
-seq_model = load_seq_model()
+    seq_model = tf.keras.models.load_model(SEQ_MODEL_PATH)
+    cnn_model = tf.keras.models.load_model(CNN_MODEL_PATH)
+
+    return seq_model, cnn_model
+
+
+seq_model, cnn_model = load_models()
+
 
 fas_data=keras.datasets.fashion_mnist
 (train_images,train_labels),(test_images,test_labels)=fas_data.load_data()
