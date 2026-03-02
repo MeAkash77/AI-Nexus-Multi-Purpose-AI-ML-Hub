@@ -391,7 +391,7 @@ if file_uploader is not None:
                  """,
                  unsafe_allow_html=True
                  )
-             else:
+                 else:
                  st.info("🎉 Prediction completed successfully!")
 
 # Updated data with more balanced accuracies
