@@ -11,11 +11,12 @@ import os
 
 st.set_page_config(page_title="MNIST Digit Recognition", page_icon="🧮", layout="wide")
 
-def load_lottie_file(filepath: str):
+def load_lottie_file(filepath):
      base_dir = os.path.dirname(__file__)
      filepath = os.path.join(base_dir, filename)
-     with open(filepath, "r", encoding="utf-8") as f:
-        data = json.load(f)
+     
+     with open(filepath, "r") as f:
+        return json.load(f)
              
 # Path to the Lottie file
 lottie_filepath = "lottie.json"  # Make sure the path is correct
