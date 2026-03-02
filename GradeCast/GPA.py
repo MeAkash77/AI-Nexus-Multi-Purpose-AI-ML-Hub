@@ -22,7 +22,7 @@ def load_data(path):
     df.columns = df.columns.str.strip()
     return df
 
-dataset = load_data(file_path)
+dataset = load_data(DATA_PATH)
 required_cols = [
     'StudentID',
     'Age',
